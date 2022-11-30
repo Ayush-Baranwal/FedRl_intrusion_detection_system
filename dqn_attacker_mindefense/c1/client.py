@@ -39,7 +39,7 @@ class IntrusionClient(fl.client.NumPyClient):
                                       eval_frequency=100, attacker=True, defender=False, video_frequency=101,
                                       save_dir="./results/data", dqn_config=dqn_config,
                                       checkpoint_freq=1000)
-        env_name = "idsgame-minimal_defense-v14"
+        env_name = "idsgame-minimal_defense-v4"
         env = gym.make(env_name, save_dir="./results/data")
         self.attacker_agent = DQNAgent(env, q_agent_config)
 
