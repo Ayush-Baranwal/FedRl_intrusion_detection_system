@@ -50,12 +50,12 @@ class IntrusionClient(fl.client.NumPyClient):
         ) for _, val in self.attacker_agent.attacker_q_network.state_dict().items()]
         param_list["defender_state"] = [val.cpu().numpy(
         ) for _, val in self.attacker_agent.defender_q_network.state_dict().items()]
-        return param_list["defender_state"]
+        return param_list["attacker_state"]
         # return [val.cpu().numpy() for _, val in attacker_agent.state_dict().items()]
 
     def set_parameters(self, parameters):
         # Set model parameters from a list of NumPy ndarrays
-        params_dict_attacker = zip(self.attacker_agent.defender_q_network.state_dict(
+        params_dict_attacker = zip(self.attacker_agent.attacker_q_network.state_dict(
         ).keys(), parameters)
         # params_dict_defender = zip(self.attacker_agent.defender_q_network.state_dict(
         # ).keys(), parameters["defender_state"])
@@ -64,7 +64,7 @@ class IntrusionClient(fl.client.NumPyClient):
             {k: torch.tensor(v) for k, v in params_dict_attacker})
         # state_dict_defender = OrderedDict(
         #     {k: torch.tensor(v) for k, v in params_dict_defender})
-        self.attacker_agent.defender_q_network.load_state_dict(
+        self.attacker_agent.attacker_q_network.load_state_dict(
             state_dict_attacker, strict=True)
         # self.attacker_agent.defender_target_network.load_state_dict(
         #     state_dict_defender)
